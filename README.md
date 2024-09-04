@@ -1,2 +1,2 @@
-# java-microservice
-Learning Java Microservice
+# bookteria
+The bookteria project, a book social network
