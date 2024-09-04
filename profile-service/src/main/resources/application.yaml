@@ -1,0 +1,15 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /profile
+
+spring:
+  datasource:
+    url: ${DBMS_CONNECTION:jdbc:mysql://localhost:3306/identity_service}
+    driverClassName: "com.mysql.cj.jdbc.Driver"
+    username: ${DBMS_USERNAME:root}
+    password: ${DBMS_PASSWORD:Admin@123$}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
