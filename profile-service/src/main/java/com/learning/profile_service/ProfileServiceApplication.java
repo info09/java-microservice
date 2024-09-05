@@ -1,4 +1,4 @@
-package com.dev.profile_service;
+package com.learning.profile_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
