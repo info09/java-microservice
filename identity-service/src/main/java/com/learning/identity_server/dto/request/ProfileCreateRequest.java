@@ -1,4 +1,4 @@
-package com.learning.profile_service.dto.request;
+package com.learning.identity_server.dto.request;
 
 import java.time.LocalDate;
 
@@ -11,9 +11,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProfileCreateRequest {
-    String userId;
     String firstName;
     String lastName;
     LocalDate dob;
     String city;
+    String userId;
 }

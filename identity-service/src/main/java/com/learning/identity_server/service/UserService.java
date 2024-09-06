@@ -18,14 +18,18 @@ import com.learning.identity_server.entity.Role;
 import com.learning.identity_server.entity.User;
 import com.learning.identity_server.exception.AppException;
 import com.learning.identity_server.exception.ErrorCode;
+import com.learning.identity_server.mapper.IProfileMapper;
 import com.learning.identity_server.mapper.IUserMapper;
 import com.learning.identity_server.repository.IRoleRepository;
 import com.learning.identity_server.repository.IUserRepository;
+import com.learning.identity_server.repository.httpclient.ProfileClient;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -34,6 +38,8 @@ public class UserService {
     IRoleRepository roleRepository;
     IUserMapper userMapper;
     PasswordEncoder passwordEncoder;
+    ProfileClient profileClient;
+    IProfileMapper profileMapper;
 
     public UserResponse createRequest(UserCreateRequest request) {
         if (userRepository.existsByUserName(request.getUserName())) throw new AppException(ErrorCode.USER_EXISTED);
@@ -51,6 +57,12 @@ public class UserService {
         } catch (DataIntegrityViolationException ex) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
+
+        var profileRequest = profileMapper.toProfileCreateRequest(request);
+        profileRequest.setUserId(user.getId());
+        var response = profileClient.createProfile(profileRequest);
+
+        log.info(response.toString());
 
         return userMapper.toUserDto(user);
     }
