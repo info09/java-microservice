@@ -4,8 +4,8 @@ FROM maven:3.9.8-amazoncorretto-21-debian AS build
 
 # Copy source code and pom.xml file to /app folder
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+COPY identity-service/pom.xml .
+COPY identity-service/src ./src
 
 ## Build source code with maven
 RUN mvn package -DskipTests

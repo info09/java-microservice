@@ -14,6 +14,15 @@ services:
     ports:
       - "3306:3306"
 
+  neo4jdb:
+    container_name: neo4jdb
+    restart: always
+    volumes:
+      - neo4j_data:/data
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+
   identity.api:
     container_name: identity.api
     environment:
