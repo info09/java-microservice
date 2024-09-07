@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.learning.identity_server.dto.request.ProfileCreateRequest;
+import com.learning.identity_server.dto.response.UserProfileResponse;
 
-@FeignClient(name = "profile-service", url = "http://localhost:8081/profile")
+@FeignClient(name = "profile-service", url = "${app.service.profile}")
 public interface ProfileClient {
     @PostMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    Object createProfile(@RequestBody ProfileCreateRequest request);
+    UserProfileResponse createProfile(@RequestBody ProfileCreateRequest request);
 }
