@@ -10,6 +10,6 @@ import com.learning.identity_server.dto.response.UserProfileResponse;
 
 @FeignClient(name = "profile-service", url = "${app.service.profile}")
 public interface ProfileClient {
-    @PostMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/internal/users", produces = MediaType.APPLICATION_JSON_VALUE)
     UserProfileResponse createProfile(@RequestBody ProfileCreateRequest request);
 }

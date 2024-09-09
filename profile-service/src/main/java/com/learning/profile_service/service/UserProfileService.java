@@ -31,4 +31,10 @@ public class UserProfileService {
 
         return userProfileMapper.toUserProfileResponse(userProfile);
     }
+
+    public UserProfileResponse getProfileByUserId(String userId){
+        var userProfile = userProfileRepository.findByUserId(userId);
+
+        return userProfileMapper.toUserProfileResponse(userProfile);
+    }
 }

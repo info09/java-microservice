@@ -1,29 +1,22 @@
 package com.learning.profile_service.controller;
 
-import org.springframework.web.bind.annotation.*;
-
 import com.learning.profile_service.dto.request.ProfileCreateRequest;
 import com.learning.profile_service.dto.response.UserProfileResponse;
 import com.learning.profile_service.service.UserProfileService;
-
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("/users")
-public class UserProfileController {
+@RequestMapping("internal/users")
+public class InternalUserProfileController {
     UserProfileService userProfileService;
 
-    @GetMapping("/{profileId}")
-    UserProfileResponse getUserProfile(@PathVariable String profileId) {
-        return userProfileService.getProfile(profileId);
-    }
-
-    @GetMapping("/userId/{userId}")
-    UserProfileResponse getUserProfileByUserId(@PathVariable String userId) {
-        return userProfileService.getProfileByUserId(userId);
+    @PostMapping()
+    UserProfileResponse createUserProfile(@RequestBody ProfileCreateRequest request) {
+        return userProfileService.createProfile(request);
     }
 }
