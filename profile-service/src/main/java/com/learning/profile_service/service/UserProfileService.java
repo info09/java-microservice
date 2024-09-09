@@ -11,6 +11,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -36,5 +38,11 @@ public class UserProfileService {
         var userProfile = userProfileRepository.findByUserId(userId);
 
         return userProfileMapper.toUserProfileResponse(userProfile);
+    }
+
+    public List<UserProfileResponse> getAllProfile(){
+        var listUserProfile = userProfileRepository.findAll();
+
+        return listUserProfile.stream().map(userProfileMapper::toUserProfileResponse).toList();
     }
 }
