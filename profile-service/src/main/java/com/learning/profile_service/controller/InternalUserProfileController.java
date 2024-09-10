@@ -1,12 +1,14 @@
 package com.learning.profile_service.controller;
 
+import org.springframework.web.bind.annotation.*;
+
 import com.learning.profile_service.dto.request.ProfileCreateRequest;
 import com.learning.profile_service.dto.response.UserProfileResponse;
 import com.learning.profile_service.service.UserProfileService;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor

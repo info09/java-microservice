@@ -1,5 +1,8 @@
 package com.learning.profile_service.service;
 
+import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.learning.profile_service.dto.request.ProfileCreateRequest;
@@ -10,8 +13,6 @@ import com.learning.profile_service.repository.IUserProfileRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,15 +35,18 @@ public class UserProfileService {
         return userProfileMapper.toUserProfileResponse(userProfile);
     }
 
-    public UserProfileResponse getProfileByUserId(String userId){
+    public UserProfileResponse getProfileByUserId(String userId) {
         var userProfile = userProfileRepository.findByUserId(userId);
 
         return userProfileMapper.toUserProfileResponse(userProfile);
     }
 
-    public List<UserProfileResponse> getAllProfile(){
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<UserProfileResponse> getAllProfile() {
         var listUserProfile = userProfileRepository.findAll();
 
-        return listUserProfile.stream().map(userProfileMapper::toUserProfileResponse).toList();
+        return listUserProfile.stream()
+                .map(userProfileMapper::toUserProfileResponse)
+                .toList();
     }
 }
