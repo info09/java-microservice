@@ -3,6 +3,7 @@ package com.learning.identity_server.service;
 import java.util.HashSet;
 import java.util.List;
 
+import com.learning.identity_server.dto.response.UserProfileResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -99,12 +100,12 @@ public class UserService {
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
     }
 
-    public UserResponse getProfile() {
+    public UserProfileResponse getProfile() {
         var context = SecurityContextHolder.getContext();
         String name = context.getAuthentication().getName();
 
         var user = userRepository.findByuserName(name).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
-        return userMapper.toUserDto(user);
+        return profileClient.getProfileByUserId(user.getId());
     }
 }

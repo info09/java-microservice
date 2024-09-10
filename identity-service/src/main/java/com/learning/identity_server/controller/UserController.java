@@ -2,6 +2,7 @@ package com.learning.identity_server.controller;
 
 import java.util.List;
 
+import com.learning.identity_server.dto.response.UserProfileResponse;
 import jakarta.validation.Valid;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -72,8 +73,8 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    ApiResponse<UserResponse> getProfile() {
-        var response = new ApiResponse<UserResponse>();
+    ApiResponse<UserProfileResponse> getProfile() {
+        var response = new ApiResponse<UserProfileResponse>();
         response.setResult(userService.getProfile());
         return response;
     }
