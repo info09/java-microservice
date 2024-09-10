@@ -67,9 +67,6 @@ class UserServiceTest {
         user = User.builder()
                 .id("cf0600f538b3")
                 .userName("john")
-                .firstName("John")
-                .lastName("Doe")
-                .dob(dob)
                 .build();
 
         listRole = new ArrayList<Role>();
@@ -193,18 +190,6 @@ class UserServiceTest {
         // Then
         Assertions.assertThat(exception.getErrorCode().getCode()).isEqualTo(1005);
     }
-
-    //    @Test
-    //    @WithMockUser(username = "admin", roles = "ADMIN")
-    //    void deleteUser_failed() {
-    //        // Given
-    //        Mockito.when(userRepository.findById(anyString())).thenReturn(Optional.empty());
-    //
-    //        // When
-    //        userService.deleteUser(anyString());
-    //
-    //        // Then
-    //    }
 
     @Test
     @WithMockUser(username = "admin", roles = "ADMIN")
