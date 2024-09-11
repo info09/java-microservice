@@ -22,7 +22,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class EmailService {
     EmailClient emailClient;
-    String apiKey = "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";
+    String apiKey = "";
 
     public EmailResponse sendEmail(SendEmailRequest request) {
         EmailRequest emailRequest = EmailRequest.builder()
