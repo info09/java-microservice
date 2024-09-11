@@ -6,7 +6,14 @@ server:
 spring:
   application:
     name: notification-service
+  kafka:
+    bootstrap-servers: localhost:9094
+    consumer:
+      group-id: notification-service
+      auto-offset-reset: earliest
+      key-serializer: org.springframework.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.common.serialization.StringSerializer
 
-data:
-  mongodb:
-    uri: mongodb://root:root@localhost:27017/notification-service?authSource=admin
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/notification-service?authSource=admin
