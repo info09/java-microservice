@@ -19,6 +19,9 @@ services:
   #  identity.api:
   #    image: huytq3103/identity-service:0.9.0
 
+  kafka:
+    image: bitnami/kafka:3.7.0
+
 #network section
 networks:
   default:
