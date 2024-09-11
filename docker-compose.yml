@@ -2,6 +2,9 @@ version: "3.8"
 
 services:
   #database section
+  mongodb:
+    image: bitnami/mongodb:7.0.11
+
   mysqldb:
     image: mysql:8.0.36-debian
 
@@ -24,6 +27,8 @@ networks:
 
 #volumes sections
 volumes:
+  mongodb_data:
+    name: mongodb_data
   mysql_data:
     name: mysql_data
   neo4j_data:

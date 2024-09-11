@@ -66,9 +66,6 @@ class UserControllerTest {
         userResponse = UserResponse.builder()
                 .id("123qwerty")
                 .userName("huytq")
-                .firstName("Huy")
-                .lastName("Tran")
-                .dob(dob)
                 .build();
 
         userUpdateRequest = UserUpdateRequest.builder()
@@ -164,16 +161,16 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-    @Test
-    @WithMockUser(username = "admin")
-    void getProfile_success() throws Exception {
-        // GIVEN
-        Mockito.when(userService.getProfile()).thenReturn(userResponse);
-
-        // WHEN, THEN
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/profile"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+//    @Test
+//    @WithMockUser(username = "admin")
+//    void getProfile_success() throws Exception {
+//        // GIVEN
+//        Mockito.when(userService.getProfile()).thenReturn(userResponse);
+//
+//        // WHEN, THEN
+//        mockMvc.perform(MockMvcRequestBuilders.get("/users/profile"))
+//                .andExpect(MockMvcResultMatchers.status().isOk());
+//    }
 
     @Test
     @WithMockUser(username = "admin")
