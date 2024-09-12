@@ -2,6 +2,7 @@ package com.learning.profile_service.controller;
 
 import java.util.List;
 
+import com.learning.profile_service.dto.ApiResponse;
 import org.springframework.web.bind.annotation.*;
 
 import com.learning.profile_service.dto.response.UserProfileResponse;
@@ -19,17 +20,24 @@ public class UserProfileController {
     UserProfileService userProfileService;
 
     @GetMapping("/{profileId}")
-    UserProfileResponse getUserProfile(@PathVariable String profileId) {
-        return userProfileService.getProfile(profileId);
+    ApiResponse<UserProfileResponse> getUserProfile(@PathVariable String profileId) {
+        return ApiResponse.<UserProfileResponse>builder()
+                .result(userProfileService.getProfile(profileId))
+                .build();
     }
 
-    @GetMapping("/userId/{userId}")
-    UserProfileResponse getUserProfileByUserId(@PathVariable String userId) {
-        return userProfileService.getProfileByUserId(userId);
+    @GetMapping("/my-profile")
+    ApiResponse<UserProfileResponse> getMyProfile() {
+        return ApiResponse.<UserProfileResponse>builder()
+                .result(userProfileService.getMyProfile())
+                .build();
     }
 
     @GetMapping()
-    List<UserProfileResponse> getAllProfile() {
-        return userProfileService.getAllProfile();
+    ApiResponse<List<UserProfileResponse>> getAllProfile() {
+
+        return ApiResponse.<List<UserProfileResponse>>builder()
+                .result(userProfileService.getAllProfile())
+                .build();
     }
 }

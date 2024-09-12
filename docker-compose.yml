@@ -11,14 +11,6 @@ services:
   neo4jdb:
     image: neo4j:latest
 
-  identity.api:
-    image: ${DOCKER_REGISTRY-}identity-service:${PLATFORM:-linux}-${TAG:-latest}
-    build:
-      context: .
-      dockerfile: identity-service/Dockerfile
-  #  identity.api:
-  #    image: huytq3103/identity-service:0.9.0
-
   kafka:
     image: bitnami/kafka:3.7.0
 

@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.learning.profile_service.entity.UserProfile;
 
+import java.util.Optional;
+
 @Repository
 public interface IUserProfileRepository extends Neo4jRepository<UserProfile, String> {
-    UserProfile findByUserId(String userId);
+    Optional<UserProfile> findByUserId(String userId);
 }

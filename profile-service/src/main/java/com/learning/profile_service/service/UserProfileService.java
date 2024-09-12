@@ -2,7 +2,10 @@ package com.learning.profile_service.service;
 
 import java.util.List;
 
+import com.learning.profile_service.exception.AppException;
+import com.learning.profile_service.exception.ErrorCode;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.learning.profile_service.dto.request.ProfileCreateRequest;
@@ -35,8 +38,11 @@ public class UserProfileService {
         return userProfileMapper.toUserProfileResponse(userProfile);
     }
 
-    public UserProfileResponse getProfileByUserId(String userId) {
-        var userProfile = userProfileRepository.findByUserId(userId);
+    public UserProfileResponse getMyProfile() {
+        var authenticate = SecurityContextHolder.getContext().getAuthentication();
+        var userId = authenticate.getName();
+
+        var userProfile = userProfileRepository.findByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         return userProfileMapper.toUserProfileResponse(userProfile);
     }

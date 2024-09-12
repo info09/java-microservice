@@ -35,16 +35,6 @@ services:
       - "7474:7474"
       - "7687:7687"
 
-  identity.api:
-    container_name: identity.api
-    environment:
-      - DBMS_CONNECTION=jdbc:mysql://mysqldb:3306/identity_service
-    depends_on:
-      - mysqldb
-    ports:
-      - "9080:8080"
-    restart: always
-
   kafka:
     container_name: kafka
     restart: always

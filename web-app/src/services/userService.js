@@ -9,12 +9,3 @@ export const getMyInfo = async () => {
     },
   });
 };
-
-export const getProfile = async (userId) => {
-  let url = API.PROFILE + "/9a62163a-5574-43da-ae8b-5c53993739ff";
-  return await httpClient.get(url, {
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
-};
