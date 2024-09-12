@@ -148,7 +148,7 @@ public class AuthService {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(user.getUserName())
+                .subject(user.getId())
                 .issuer("dev")
                 .issueTime(new Date())
                 .expirationTime(new Date(
