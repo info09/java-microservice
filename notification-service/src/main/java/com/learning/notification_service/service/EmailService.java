@@ -24,8 +24,7 @@ import lombok.experimental.FieldDefaults;
 public class EmailService {
     EmailClient emailClient;
 
-    @Value("${app.bravo.api-key}")
-    String apiKey;
+    String apiKey="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";
 
     public EmailResponse sendEmail(SendEmailRequest request) {
         EmailRequest emailRequest = EmailRequest.builder()

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.learning.identity_server.dto.response.UserProfileResponse;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +42,7 @@ public class UserService {
     PasswordEncoder passwordEncoder;
     ProfileClient profileClient;
     IProfileMapper profileMapper;
+    KafkaTemplate<String, String> kafkaTemplate;
 
     public UserResponse createRequest(UserCreateRequest request) {
         if (userRepository.existsByUserName(request.getUserName())) throw new AppException(ErrorCode.USER_EXISTED);
@@ -64,6 +66,8 @@ public class UserService {
         var response = profileClient.createProfile(profileRequest);
 
         log.info(response.toString());
+
+        kafkaTemplate.send("user-created", "Welcome our new member: "+user.getUserName());
 
         return userMapper.toUserDto(user);
     }
