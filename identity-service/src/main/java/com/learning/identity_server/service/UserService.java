@@ -3,6 +3,7 @@ package com.learning.identity_server.service;
 import java.util.HashSet;
 import java.util.List;
 
+import com.learning.event.dto.NotificationEvent;
 import com.learning.identity_server.dto.response.UserProfileResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -42,7 +43,7 @@ public class UserService {
     PasswordEncoder passwordEncoder;
     ProfileClient profileClient;
     IProfileMapper profileMapper;
-    KafkaTemplate<String, String> kafkaTemplate;
+    KafkaTemplate<String, Object> kafkaTemplate;
 
     public UserResponse createRequest(UserCreateRequest request) {
         if (userRepository.existsByUserName(request.getUserName())) throw new AppException(ErrorCode.USER_EXISTED);
@@ -67,7 +68,14 @@ public class UserService {
 
         log.info(response.toString());
 
-        kafkaTemplate.send("user-created", "Welcome our new member: "+user.getUserName());
+        var notificationEvent = NotificationEvent.builder()
+                .channel("email")
+                .recipient(request.getEmail())
+                .subject("Welcome to Learning System")
+                .body("Hi " + user.getUserName() + ", welcome to Learning System. We are happy to have you here.")
+                .build();
+
+        kafkaTemplate.send("notification-delivery", notificationEvent);
 
         return userMapper.toUserDto(user);
     }

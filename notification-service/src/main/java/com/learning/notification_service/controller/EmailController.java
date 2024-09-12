@@ -1,7 +1,6 @@
 package com.learning.notification_service.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +28,5 @@ public class EmailController {
                 .build();
     }
 
-    @KafkaListener(topics = "user-created")
-    public void listen(String message) {
-        log.info("Email Response: " + message);
-    }
+
 }
