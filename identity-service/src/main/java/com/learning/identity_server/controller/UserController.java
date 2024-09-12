@@ -2,7 +2,6 @@ package com.learning.identity_server.controller;
 
 import java.util.List;
 
-import com.learning.identity_server.dto.response.UserProfileResponse;
 import jakarta.validation.Valid;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.learning.identity_server.dto.request.UserCreateRequest;
 import com.learning.identity_server.dto.request.UserUpdateRequest;
 import com.learning.identity_server.dto.response.ApiResponse;
+import com.learning.identity_server.dto.response.UserProfileResponse;
 import com.learning.identity_server.dto.response.UserResponse;
 import com.learning.identity_server.service.UserService;
 

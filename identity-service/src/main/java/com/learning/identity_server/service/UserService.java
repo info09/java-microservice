@@ -3,8 +3,6 @@ package com.learning.identity_server.service;
 import java.util.HashSet;
 import java.util.List;
 
-import com.learning.event.dto.NotificationEvent;
-import com.learning.identity_server.dto.response.UserProfileResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -13,9 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.learning.event.dto.NotificationEvent;
 import com.learning.identity_server.constants.PredefineRole;
 import com.learning.identity_server.dto.request.UserCreateRequest;
 import com.learning.identity_server.dto.request.UserUpdateRequest;
+import com.learning.identity_server.dto.response.UserProfileResponse;
 import com.learning.identity_server.dto.response.UserResponse;
 import com.learning.identity_server.entity.Role;
 import com.learning.identity_server.entity.User;

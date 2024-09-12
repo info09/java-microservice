@@ -64,10 +64,7 @@ class UserServiceTest {
                 .dob(dob)
                 .build();
 
-        user = User.builder()
-                .id("cf0600f538b3")
-                .userName("john")
-                .build();
+        user = User.builder().id("cf0600f538b3").userName("john").build();
 
         listRole = new ArrayList<Role>();
     }
@@ -98,18 +95,18 @@ class UserServiceTest {
         Assertions.assertThat(exception.getErrorCode().getCode()).isEqualTo(1002);
     }
 
-//    @Test
-//    @WithMockUser(username = "admin")
-//    void getProfile_success() {
-//        // Given
-//        Mockito.when(userRepository.findByuserName(anyString())).thenReturn(Optional.of(user));
-//
-//        // When
-//        var response = userService.getProfile();
-//
-//        // Then
-//        Assertions.assertThat(response.getUserName()).isEqualTo(user.getUserName());
-//    }
+    //    @Test
+    //    @WithMockUser(username = "admin")
+    //    void getProfile_success() {
+    //        // Given
+    //        Mockito.when(userRepository.findByuserName(anyString())).thenReturn(Optional.of(user));
+    //
+    //        // When
+    //        var response = userService.getProfile();
+    //
+    //        // Then
+    //        Assertions.assertThat(response.getUserName()).isEqualTo(user.getUserName());
+    //    }
 
     @Test
     @WithMockUser(username = "admin")
