@@ -1,11 +1,14 @@
 package com.learning.post_service.service;
 
 import java.time.Instant;
-import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.learning.post_service.dto.PageResponse;
 import com.learning.post_service.dto.request.PostRequest;
 import com.learning.post_service.dto.response.PostResponse;
 import com.learning.post_service.entity.Post;
@@ -36,10 +39,20 @@ public class PostService {
         return postMapper.toPostDto(post);
     }
 
-    public List<PostResponse> getMyPost(){
+    public PageResponse<PostResponse> getMyPost(int page, int size) {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
-        return postRepository.findByUserId(authentication.getName()).stream()
-                .map(postMapper::toPostDto)
-                .toList();
+        var userId = authentication.getName();
+
+        Sort sort = Sort.by("createdDate").descending();
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        var pageData = postRepository.findByUserId(userId, pageable);
+
+        return PageResponse.<PostResponse>builder()
+                .currentPage(page)
+                .pageSize(pageData.getSize())
+                .totalPage(pageData.getTotalPages())
+                .totalElement(pageData.getTotalElements())
+                .data(pageData.getContent().stream().map(postMapper::toPostDto).toList())
+                .build();
     }
 }
