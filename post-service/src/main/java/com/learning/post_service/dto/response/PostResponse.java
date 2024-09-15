@@ -13,7 +13,9 @@ import lombok.experimental.FieldDefaults;
 public class PostResponse {
     String id;
     String userId;
+    String userName;
     String content;
+    String created;
     Instant createdDate;
     Instant modifiedDate;
 }

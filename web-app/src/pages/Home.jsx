@@ -31,9 +31,9 @@ export default function Home() {
     getMyPosts(page)
       .then((response) => {
         setTotalPages(response.data.result.totalPages);
-        setPosts((prevPosts) => [...prevPosts, ...response.data.result]);
-        setHasMore(response.data.result.length > 0);
-        console.log("loaded posts:", response.data.result);
+        setPosts((prevPosts) => [...prevPosts, ...response.data.result.data]);
+        setHasMore(response.data.result.data.length > 0);
+        console.log("loaded posts:", response.data.result.data);
       })
       .catch((error) => {
         if (error.response.status === 401) {
