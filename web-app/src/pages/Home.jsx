@@ -1,15 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Card, CircularProgress, Typography } from "@mui/material";
-import { isAuthenticated, logOut } from "../services/authenticationService";
+import {
+  Box,
+  Button,
+  Card,
+  CircularProgress,
+  Modal,
+  TextareaAutosize,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { isAuthenticated } from "../services/authenticationService";
 import Scene from "./Scene";
 import Post from "../components/Post";
 import { getMyPosts } from "../services/postService";
+import { logOut } from "../services/authenticationService";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(false);
   const observer = useRef();
@@ -30,10 +40,10 @@ export default function Home() {
     setLoading(true);
     getMyPosts(page)
       .then((response) => {
-        setTotalPages(response.data.result.totalPages);
+        setTotalPage(response.data.result.totalPage);
         setPosts((prevPosts) => [...prevPosts, ...response.data.result.data]);
         setHasMore(response.data.result.data.length > 0);
-        console.log("loaded posts:", response.data.result.data);
+        console.log("loaded posts:", response.data.result);
       })
       .catch((error) => {
         if (error.response.status === 401) {
@@ -52,7 +62,7 @@ export default function Home() {
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        if (page < totalPages) {
+        if (page < totalPage) {
           setPage((prevPage) => prevPage + 1);
         }
       }
@@ -63,6 +73,22 @@ export default function Home() {
 
     setHasMore(false);
   }, [hasMore]);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   return (
     <Scene>
@@ -75,6 +101,31 @@ export default function Home() {
           padding: "20px",
         }}
       >
+        <Button onClick={handleOpen}>
+          <TextField
+            hiddenLabel
+            id="filled-hidden-label-small"
+            defaultValue="Hôm nay bạn nghĩ gì?"
+            variant="filled"
+            size="small"
+          />
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Tạo bài viết
+            </Typography>
+            <Typography
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+            ></Typography>
+          </Box>
+        </Modal>
         <Box
           sx={{
             display: "flex",
