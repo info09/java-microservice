@@ -27,7 +27,8 @@ public class DateTimeFormatter {
         var strategy = strategyMap.entrySet()
                 .stream()
                 .filter(longFunctionEntry -> elapseSeconds < longFunctionEntry.getKey())
-                .findFirst().get();
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No strategy found"));
 
         return strategy.getValue().apply(instant);
     }

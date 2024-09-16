@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-    protected static final String[] PUBLIC_URLS = {"/internal/users"};
+    protected static final String[] PUBLIC_URLS = {"/internal/users/**"};
 
     private final CustomJwtDecoder customJwtDecoder;
 
@@ -26,7 +26,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_URLS)
+        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(PUBLIC_URLS)
                 .permitAll()
                 .anyRequest()
                 .authenticated());

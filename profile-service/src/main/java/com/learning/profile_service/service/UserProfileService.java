@@ -33,7 +33,7 @@ public class UserProfileService {
 
     public UserProfileResponse getProfile(String id) {
         var userProfile =
-                userProfileRepository.findById(id).orElseThrow(() -> new RuntimeException("Profile not found"));
+                userProfileRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         return userProfileMapper.toUserProfileResponse(userProfile);
     }
@@ -42,6 +42,12 @@ public class UserProfileService {
         var authenticate = SecurityContextHolder.getContext().getAuthentication();
         var userId = authenticate.getName();
 
+        var userProfile = userProfileRepository.findByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        return userProfileMapper.toUserProfileResponse(userProfile);
+    }
+
+    public UserProfileResponse getByUserId(String userId){
         var userProfile = userProfileRepository.findByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         return userProfileMapper.toUserProfileResponse(userProfile);

@@ -1,5 +1,6 @@
 package com.learning.profile_service.controller;
 
+import com.learning.profile_service.dto.ApiResponse;
 import org.springframework.web.bind.annotation.*;
 
 import com.learning.profile_service.dto.request.ProfileCreateRequest;
@@ -20,5 +21,12 @@ public class InternalUserProfileController {
     @PostMapping()
     UserProfileResponse createUserProfile(@RequestBody ProfileCreateRequest request) {
         return userProfileService.createProfile(request);
+    }
+
+    @GetMapping("/{userId}")
+    ApiResponse<UserProfileResponse> getUserProfile(@PathVariable String userId) {
+        return ApiResponse.<UserProfileResponse>builder()
+                .result(userProfileService.getByUserId(userId))
+                .build();
     }
 }
